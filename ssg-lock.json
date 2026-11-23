@@ -1,0 +1,9 @@
+{
+  "engine": "mdbook",
+  "packages": {
+    "mdbook": "0.5.4",
+    "pulldown-cmark": "builtin",
+    "katex": "0.19.1",
+    "mermaid": "12.3.0"
+  }
+}

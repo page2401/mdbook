@@ -1,0 +1,9 @@
+[book]
+title = "mdBook 0.5 基准实测子站"
+language = "zh-CN"
+src = "src"
+
+[output.html]
+site-url = "/mdbook/"
+additional-css = ["theme/vendor/katex.min.css", "theme/custom.css"]
+additional-js = ["theme/vendor/katex.min.js", "theme/vendor/auto-render.min.js", "theme/vendor/mermaid.min.js", "theme/init.js"]

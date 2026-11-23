@@ -1,0 +1,41 @@
+name: Deploy mdBook 0.5 to page branch
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-mdbook
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      - name: Install mdBook v0.5.4 binary
+        run: |
+          curl -fsSL https://github.com/rust-lang/mdBook/releases/download/v0.5.4/mdbook-v0.5.4-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C /usr/local/bin
+          mdbook --version
+
+      - name: Build mdBook static site
+        run: mdbook build
+
+      - name: Ensure .nojekyll exists in book
+        run: touch book/.nojekyll
+
+      - name: Publish static output to orphan page branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: book
+          publish_branch: page
+          force_orphan: true
+          commit_message: "deploy(page): build from ${{ github.sha }}"
