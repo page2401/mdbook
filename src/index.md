@@ -19,3 +19,4 @@
 | [`02-diagrams.md`](./02-diagrams.md) | 流程图与时序图 | 正文 ` ```mermaid ` 保持零改动，由 `book.toml` 挂载本地 `mermaid@12.3.0` 客户端渲染 |
 | [`03-math.md`](./03-math.md) | 数学公式排版 | 因未开启外部 CDN 的 `mathjax-support`，`pulldown-cmark` 会将 `\\`、`\,`、`\$` 当作普通标点转义，派生版需写作 `\\\\`、`\\,`、`\\$` 供 KaTeX 解析 |
 | [`04-directory/`](./04-directory/index.md) | 目录结构与路由取舍 | 强中心化 `src/SUMMARY.md` 白名单驱动侧边栏与路由；保留相对 `.md` 互链并自动编译为 `.html` |
+| [`05-code-blocks.md`](./05-code-blocks.md) | 高阶代码块与语法高亮 | 内置客户端 `highlight.js`（零外部 CDN）+ **mdBook 独门 `hidelines`（`# ` 隐藏样板行与右上角眼睛展开按钮）** + 标准 `diff` 块 |
