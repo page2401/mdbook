@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>mdBook 0.5 基准实测子站</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/vendor/katex-c8154259.min.css">
+        <link rel="stylesheet" href="theme/custom-3d88659b.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-2ac343bc.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-eea456a0.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">mdBook 0.5 基准实测子站</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="mdbook-05-基准实测子站rust-单体二进制电子书引擎"><a class="header" href="#mdbook-05-基准实测子站rust-单体二进制电子书引擎">mdBook 0.5 基准实测子站（Rust 单体二进制电子书引擎）</a></h1>
+<p>本子站（<code>page2401/mdbook</code>）由主仓库 <code>page2401.github.io/docs/</code> 的<strong>标准 GitHub Flavored Markdown（GFM）母版</strong>派生适配而来，用于实测 Rust 官方生态最经典的单体二进制文档引擎 <strong><code>mdBook v0.5.4</code></strong> 在零外部 CDN 依赖下的真实表现。</p>
+<h2 id="锁定版本与技术栈档案"><a class="header" href="#锁定版本与技术栈档案">锁定版本与技术栈档案</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">模块 / 组件</th><th style="text-align: left">锁定版本</th><th style="text-align: left">角色与实测说明</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><code>mdbook</code></td><td style="text-align: left"><code>0.5.4</code></td><td style="text-align: left">Rust 官方电子书编译器，零 Node / Python 运行时，亚秒级构建输出至 <code>book/</code></td></tr>
+<tr><td style="text-align: left"><code>pulldown-cmark</code></td><td style="text-align: left"><code>builtin</code></td><td style="text-align: left">内置 CommonMark + GFM 扩展解析器；0.5 原生支持 <code>&gt; [!NOTE]</code> 五类警报，但<strong>默认不剥离 YAML Frontmatter</strong> 且会先行消费公式中的单反斜杠</td></tr>
+<tr><td style="text-align: left"><code>katex</code></td><td style="text-align: left"><code>0.19.1</code></td><td style="text-align: left">通过 <code>additional-css</code> / <code>additional-js</code> 本地静态注入（含内嵌 <code>.woff2</code> 字体，零外部 CDN）</td></tr>
+<tr><td style="text-align: left"><code>mermaid</code></td><td style="text-align: left"><code>12.3.0</code></td><td style="text-align: left">通过 <code>theme/init.js</code> 拦截 <code>code.language-mermaid</code> 并联动 <code>navy</code> / <code>light</code> 主题重绘</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="五大基准测试章节导航"><a class="header" href="#五大基准测试章节导航">五大基准测试章节导航</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">章节路径</th><th style="text-align: left">测试维度</th><th style="text-align: left"><code>mdBook 0.5.4</code> 派生适配实录</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><a href="#01-专属标注与元数据mdbook-05-实测"><code>01-annotations.md</code></a></td><td style="text-align: left">专属标注与元数据</td><td style="text-align: left"><strong>关键发现</strong>：必须移除顶部 <code>---</code> YAML Frontmatter（否则被误解析为 <code>&lt;hr&gt; + &lt;h2&gt;</code>）；0.5 内核零插件原生渲染全部 5 类 GFM <code>&gt; [!NOTE]</code> 警报</td></tr>
+<tr><td style="text-align: left"><a href="#02-流程图与时序图mdbook-05--mermaid-123"><code>02-diagrams.md</code></a></td><td style="text-align: left">流程图与时序图</td><td style="text-align: left">正文 <code>```mermaid</code> 保持零改动，由 <code>book.toml</code> 挂载本地 <code>mermaid@12.3.0</code> 客户端渲染</td></tr>
+<tr><td style="text-align: left"><a href="#03-数学公式排版mdbook-05--katex-019"><code>03-math.md</code></a></td><td style="text-align: left">数学公式排版</td><td style="text-align: left">因未开启外部 CDN 的 <code>mathjax-support</code>，<code>pulldown-cmark</code> 会将 <code>\\</code>、<code>\,</code>、<code>\$</code> 当作普通标点转义，派生版需写作 <code>\\\\</code>、<code>\\,</code>、<code>\\$</code> 供 KaTeX 解析</td></tr>
+<tr><td style="text-align: left"><a href="#04-目录结构与路由取舍mdbook-summarymd-强中心化模式"><code>04-directory/</code></a></td><td style="text-align: left">目录结构与路由取舍</td><td style="text-align: left">强中心化 <code>src/SUMMARY.md</code> 白名单驱动侧边栏与路由；保留相对 <code>.md</code> 互链并自动编译为 <code>.html</code></td></tr>
+<tr><td style="text-align: left"><a href="#05-高阶代码块与语法高亮mdbook-05--hidelines-实测"><code>05-code-blocks.md</code></a></td><td style="text-align: left">高阶代码块与语法高亮</td><td style="text-align: left">内置客户端 <code>highlight.js</code>（零外部 CDN）+ <strong>mdBook 独门 <code>hidelines</code>（<code># </code> 隐藏样板行与右上角眼睛展开按钮）</strong> + 标准 <code>diff</code> 块</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="01-专属标注与元数据mdbook-05-实测"><a class="header" href="#01-专属标注与元数据mdbook-05-实测">01. 专属标注与元数据（mdBook 0.5 实测）</a></h1>
+<p>不同静态网站生成器对“提示框 / 标注（Callouts / Admonitions）”和页面元数据的语法约定存在显著分歧。本文件由原始 GFM 母版派生至 <strong><code>mdBook v0.5.4</code></strong>，直观展示了“<strong>必须剥离 YAML Frontmatter</strong>”与“<strong>0.5 原生直通 GFM Alerts</strong>”两大鲜明特征。</p>
+<h2 id="1-frontmatter-元数据机制实测陷阱默认不剥离-yaml"><a class="header" href="#1-frontmatter-元数据机制实测陷阱默认不剥离-yaml">1. Frontmatter 元数据机制（实测陷阱：默认不剥离 YAML）</a></h2>
+<p>与绝大多数静态站点生成器不同，<code>mdBook v0.5.4</code> 的章节标题与层级完全由全局 <code>book.toml</code> 与 <code>src/SUMMARY.md</code> 索引文件集中声明，<strong>内置 <code>pulldown-cmark</code> 默认不会剥离文件顶部的 <code>--- ... ---</code> YAML Frontmatter</strong>：</p>
+<ul>
+<li><strong>实测现象</strong>：若原样保留母版顶部的 <code>---\ntitle: "..."\ndescription: "..."\n---</code>，<code>mdBook 0.5.4</code> 会把首行 <code>---</code> 渲染为 <code>&lt;hr&gt;</code> 分割线，并把末尾 <code>---</code> 当作 Setext 二级标题下划线，将整段 YAML 原文直接印成页面顶部的巨大 <code>&lt;h2&gt;</code> 标题！</li>
+<li><strong>派生改造</strong>：真实 <code>mdBook</code> 工程（如 <em>The Rust Programming Language</em>）均不在 <code>src/*.md</code> 顶部编写 YAML 元数据；本派生文件按原生惯例移除了顶部 4 行 YAML。</li>
+</ul>
+<h2 id="2-标准提示语义块mdbook-05-原生支持-gfm-alerts"><a class="header" href="#2-标准提示语义块mdbook-05-原生支持-gfm-alerts">2. 标准提示语义块（mdBook 0.5 原生支持 GFM Alerts）</a></h2>
+<p>在旧版 <code>mdBook 0.4.x</code> 时代，开发者通常需要额外安装 <code>mdbook-admonish</code> 预处理器并改写为私有 <code>```admonish warning</code> 围栏语法；而升级至 <strong><code>mdBook 0.5.4</code></strong> 后，内核原生解析全部五类标准 GFM 引用警报（自动渲染为带 Octicons 图标的 <code>.blockquote-tag</code>），母版正文无需改写任何私有 <code>:::</code> 容器：</p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>默认信息提示块：静态站点对比平台的每个子模块均独立维护 <code>main</code>（源码）与 <code>page</code>（构建产物）双分支，互不污染提交历史。</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p><strong>性能优化建议（自定义标题语义）</strong>：在派生到三冒号体系时，VitePress / VuePress 写作 <code>::: tip 性能优化建议</code>，而 <code>mdBook 0.5</code> 直接沿用母版 GFM <code>&gt; [!TIP]</code> 即可零插件渲染。</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p><strong>版本边界注意</strong>：注意区分各派系关键字命名——VitePress 与 VuePress 使用 <code>warning</code>，Starlight 使用 <code>caution</code>，而 <code>mdBook 0.5</code> 与 GitHub 网页端保持 100% 一致。</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-caution">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
+<p><strong>不可逆分支覆盖警告</strong>：自动化流水线在向 <code>page</code> 分支推送构建产物时会启用 <code>force_orphan: true</code>，切勿在 <code>page</code> 分支直接手工修改代码！</p>
+</blockquote>
+<h2 id="3-可折叠详情容器标准-html-details"><a class="header" href="#3-可折叠详情容器标准-html-details">3. 可折叠详情容器（标准 HTML <code>&lt;details&gt;</code>）</a></h2>
+<p><code>mdBook</code> 原生透传标准 HTML <code>&lt;details&gt;</code> 与 <code>&lt;summary&gt;</code> 标签（注意 <code>&lt;summary&gt;</code> 下方须保留空行，以便 <code>pulldown-cmark</code> 正确解析内部 Markdown 代码块与行内公式）：</p>
+<details>
+<summary>点击展开查看母版折叠容器源码结构</summary>
+<pre><code class="language-markdown">&gt; [!TIP]
+&gt; 母版使用纯正 GFM 语法，在 GitHub 仓库网页端与 mdBook 0.5 中均可直接原样渲染。
+</code></pre>
+<p>除了代码块，折叠容器内同样支持列表、表格与数学公式 $f(x) = x^2 + 1$。</p>
+</details>
+<h2 id="4-github-风格引用警报gfm-alerts跨框架直通测试"><a class="header" href="#4-github-风格引用警报gfm-alerts跨框架直通测试">4. GitHub 风格引用警报（GFM Alerts）跨框架直通测试</a></h2>
+<p>以下三段与母版<strong>保持一字不改</strong>，用于测试：如果不做任何方言改写、直接把母版 <code>.md</code> 丢进目标生成器，<code>mdBook 0.5.4</code> 能否零改造直通渲染：</p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>这是一段标准的 GitHub Flavored Markdown <code>[!NOTE]</code> 警报文本，用于检验各生成器对母版语法的零改造直通能力。</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-important">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>跨平台迁移 Markdown 文档时，是否原生兼容 <code>&gt; [!IMPORTANT]</code> 与 <code>&gt; [!WARNING]</code> 直接决定了母版文档的派生改造成本。</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-caution">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
+<p>若目标生成器未内置 GFM Alert 解析器（如 VuePress v1、Starlight 默认配置、Docsify v4 旧插件），上方标记会退化为普通引用块并原样露出 <code>[!CAUTION]</code> 字符串。</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="02-流程图与时序图mdbook-05--mermaid-123"><a class="header" href="#02-流程图与时序图mdbook-05--mermaid-123">02. 流程图与时序图（mdBook 0.5 + Mermaid 12.3）</a></h1>
+<p><code>mdBook v0.5.4</code> 默认将 <code>```mermaid</code> 输出为 <code>&lt;pre&gt;&lt;code class="language-mermaid"&gt;...&lt;/code&gt;&lt;/pre&gt;</code> 代码块。本子站无需安装外部 <code>mdbook-mermaid</code> 二进制预处理器，直接通过 <code>book.toml</code> 的 <code>additional-js</code> 挂载本地锁定的 <strong><code>mermaid@12.3.0</code></strong> 与 <code>theme/init.js</code>，正文代码块与母版保持 100% 零改动，并随 <code>navy</code> / <code>light</code> 主题自动重绘。</p>
+<h2 id="1-复杂子图与架构流程图flowchart-td"><a class="header" href="#1-复杂子图与架构流程图flowchart-td">1. 复杂子图与架构流程图（<code>flowchart TD</code>）</a></h2>
+<p>测试中文节点标签、子图嵌套（<code>subgraph</code>）、虚线边与条件分支：</p>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph MainRepo["主仓库 page2401.github.io"]
+        Master["母版 docs/*.md (Pure GFM)"]
+        SubPtr["Git Submodule 指针 (sites/*)"]
+        Workbench["对比工作台源码 (main)"]
+    end
+
+    subgraph SubRepo["各独立派生子仓库 (sites/&lt;id&gt;)"]
+        SrcBranch["main 分支: 框架配置 + 派生适配版 *.md"]
+        Actions{"GitHub Actions 构建"}
+        PageBranch["page 孤儿分支: 纯静态产物 + .nojekyll"]
+        SrcBranch --&gt; Actions
+        Actions --&gt;|"自动构建发布"| PageBranch
+    end
+
+    Master -.-&gt;|"按各框架方言派生"| SrcBranch
+    SubPtr -.-&gt;|"跟踪 main 分支"| SrcBranch
+    Workbench --&gt;|"对比母版与各派生版差异"| Portal["https://page.2401.xyz/"]
+    PageBranch --&gt;|"GitHub Organization Pages"| SubSite["https://page.2401.xyz/&lt;id&gt;/"]
+</code></pre>
+<h2 id="2-编译管线交互时序图sequencediagram"><a class="header" href="#2-编译管线交互时序图sequencediagram">2. 编译管线交互时序图（<code>sequenceDiagram</code>）</a></h2>
+<p>测试多参与者生命线、<code>alt</code> 分支块及激活框（<code>activate</code>/<code>deactivate</code>）：</p>
+<pre><code class="language-mermaid">sequenceDiagram
+    autonumber
+    actor Author as 文档作者
+    participant Master as 主仓母版 docs/*.md
+    participant SubGit as 子模块 main 分支
+    participant CI as GitHub Actions (Node 22)
+    participant Pages as GitHub Pages (page 分支)
+
+    Author-&gt;&gt;Master: 编写标准 GFM 基准母版
+    Master-&gt;&gt;SubGit: 派生适配特定 SSG 版本语法
+    SubGit-&gt;&gt;CI: 触发 deploy-page.yml 工作流
+    activate CI
+    alt 编译型 SSG (VitePress / VuePress / Starlight)
+        CI-&gt;&gt;CI: 预编译静态 HTML + 公式 + 图表挂载点
+    else 运行时引擎 (Docsify v4 / v5)
+        CI-&gt;&gt;CI: 组装原始 *.md + _sidebar.md + 锁定版本 vendor
+    end
+    CI-&gt;&gt;Pages: force_orphan 推送至孤儿分支 page
+    deactivate CI
+    Pages--&gt;&gt;Author: 同源子路径 /&lt;id&gt;/ 即刻生效
+</code></pre>
+<h2 id="3-子模块同步状态机statediagram-v2"><a class="header" href="#3-子模块同步状态机statediagram-v2">3. 子模块同步状态机（<code>stateDiagram-v2</code>）</a></h2>
+<p>测试状态机语法与状态迁移说明标签：</p>
+<pre><code class="language-mermaid">stateDiagram-v2
+    [*] --&gt; MasterEdited: 更新主仓母版 docs/*.md
+    MasterEdited --&gt; SubmoduleDerived: 同步派生适配至各子模块 *.md
+    SubmoduleDerived --&gt; SubmodulePushed: 子模块 commit &amp; push origin main
+    SubmodulePushed --&gt; PageDeploying: 子仓库 Actions 自动更新 page 分支
+    SubmodulePushed --&gt; MainRepoUpdated: 主仓库更新子模块指针并构建对比数据
+    PageDeploying --&gt; LiveSynced: 线上渲染与母版源码差异视图全部就绪
+    MainRepoUpdated --&gt; LiveSynced: 计算相对母版改动行数完成
+    LiveSynced --&gt; [*]
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="03-数学公式排版mdbook-05--katex-019"><a class="header" href="#03-数学公式排版mdbook-05--katex-019">03. 数学公式排版（mdBook 0.5 + KaTeX 0.19）</a></h1>
+<p><code>mdBook</code> 内置的 <code>mathjax-support = true</code> 默认会向页面注入外部 <code>cdnjs.cloudflare.com</code> MathJax 脚本且仅识别 <code>\\(...\\)</code> / <code>\\[...\\]</code>。为实现<strong>零外部 CDN 依赖</strong>并兼容主流 <code>$...$</code> / <code>$$...$$</code> 定界符，本子站在本地打包 <strong><code>katex@0.19.1</code> + <code>auto-render</code></strong>。注意：由于 <code>pulldown-cmark</code> 先按 CommonMark 规则处理 ASCII 标点反斜杠转义，公式内的换行 <code>\\</code>、间距 <code>\,</code> / <code>\!</code> 以及正文中的字面量 <code>\$</code> 需双写反斜杠（<code>\\\\</code>、<code>\\,</code>、<code>\\$</code>）。</p>
+<h2 id="1-行内公式与中英文混排基线对齐"><a class="header" href="#1-行内公式与中英文混排基线对齐">1. 行内公式与中英文混排基线对齐</a></h2>
+<p>考察重点：行内公式在中文字号下的缩放比例、上下标是否撑乱行高，以及分数与根号在行内的紧凑度。</p>
+<ul>
+<li>质能方程 $E = mc^2$ 与欧拉恒等式 $e^{i\pi} + 1 = 0$ 嵌入在连续中文段落中的视觉基线表现。</li>
+<li>归并排序的平均时间复杂度为 $\mathcal{O}(n \log n)$，而空间复杂度为 $\Theta(n)$；当输入规模满足 $n \ge 2^{16}$ 时，常数因子差异显著。</li>
+<li>贝叶斯条件概率公式行内排印：$P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)}$，以及带根号的欧氏距离 $d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^{n}(x_i - y_i)^2}$。</li>
+</ul>
+<h2 id="2-多行等式对齐推导aligned-环境"><a class="header" href="#2-多行等式对齐推导aligned-环境">2. 多行等式对齐推导（<code>aligned</code> 环境）</a></h2>
+<p>测试 <code>\begin{aligned} ... \end{aligned}</code> 多行对齐、积分算子与括号自动缩放 <code>\left( ... \right)</code>：</p>
+<p>$$
+\begin{aligned}
+I^2 &amp;= \left( \int_{-\infty}^{+\infty} e^{-x^2}\,\mathrm{d}x \right) \left( \int_{-\infty}^{+\infty} e^{-y^2}\,\mathrm{d}y \right) \\
+&amp;= \iint_{\mathbb{R}^2} e^{-(x^2 + y^2)}\,\mathrm{d}x\,\mathrm{d}y \\
+&amp;= \int_{0}^{2\pi} \int_{0}^{+\infty} e^{-r^2} r\,\mathrm{d}r\,\mathrm{d}\theta \\
+&amp;= 2\pi \cdot \left[ -\frac{1}{2} e^{-r^2} \right]_{0}^{+\infty} = \pi \implies I = \sqrt{\pi}
+\end{aligned}
+$$</p>
+<h2 id="3-矩阵运算与注意力机制bmatrix-环境"><a class="header" href="#3-矩阵运算与注意力机制bmatrix-环境">3. 矩阵运算与注意力机制（<code>bmatrix</code> 环境）</a></h2>
+<p>测试缩放点积注意力公式及矩阵乘法排版：</p>
+<p>$$
+\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$</p>
+<p>$$
+\mathbf{J}_{\mathbf{f}}(\mathbf{x}) =
+\begin{bmatrix}
+\dfrac{\partial f_1}{\partial x_1} &amp; \dfrac{\partial f_1}{\partial x_2} &amp; \cdots &amp; \dfrac{\partial f_1}{\partial x_n} \\[6pt]
+\dfrac{\partial f_2}{\partial x_1} &amp; \dfrac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \dfrac{\partial f_2}{\partial x_n} \\[4pt]
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\[4pt]
+\dfrac{\partial f_m}{\partial x_1} &amp; \dfrac{\partial f_m}{\partial x_2} &amp; \cdots &amp; \dfrac{\partial f_m}{\partial x_n}
+\end{bmatrix}
+$$</p>
+<h2 id="4-分段函数与优化目标cases-环境"><a class="header" href="#4-分段函数与优化目标cases-环境">4. 分段函数与优化目标（<code>cases</code> 环境）</a></h2>
+<p>测试 Huber Loss 分段函数与花括号对齐：</p>
+<p>$$
+\mathcal{L}_{\delta}(y, \hat{y}) =
+\begin{cases}
+\dfrac{1}{2}(y - \hat{y})^2, &amp; \text{if } |y - \hat{y}| \le \delta, \\[8pt]
+\delta \cdot \left(|y - \hat{y}| - \dfrac{1}{2}\delta\right), &amp; \text{otherwise.}
+\end{cases}
+$$</p>
+<h2 id="5-字面量美元符号--转义边界测试"><a class="header" href="#5-字面量美元符号--转义边界测试">5. 字面量美元符号 <code>\$</code> 转义边界测试</a></h2>
+<p>在启用 <code>$...$</code> 行内数学公式后，同一段落出现两个价格数字（例如基础套餐 \$29/月 与专业版 \$99/月）时，因 <code>pulldown-cmark</code> 先消费一层反斜杠，须写作 <code>\\$</code> 才能向客户端 KaTeX 传递 <code>\$</code> 并避免把中间的中文误解析为斜体公式；而在反引号代码片段中编写环境变量 <code>$HOME</code> 或 <code>awk '{print $1}'</code> 则原样保留，无需反斜杠转义。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="04-目录结构与路由取舍mdbook-summarymd-强中心化模式"><a class="header" href="#04-目录结构与路由取舍mdbook-summarymd-强中心化模式">04. 目录结构与路由取舍（mdBook <code>SUMMARY.md</code> 强中心化模式）</a></h1>
+<p>本章节将母版 <code>docs/04-directory/</code> 多级嵌套目录派生至 <strong><code>mdBook v0.5.4</code></strong> 的 <code>src/</code> 目录树中，检验 Rust 电子书流派独特的 <strong><code>src/SUMMARY.md</code> 单一真相源（Whitelist）</strong> 机制：</p>
+<ol>
+<li><strong>工程隔离（<code>src/</code>）</strong>：<code>book.toml</code> 指定 <code>src = "src"</code>，仓库根目录的 <code>README.md</code> 与 <code>ssg-lock.json</code> 天然不会被误编译进电子书。</li>
+<li><strong><code>SUMMARY.md</code> 绝对控制权</strong>：
+<ul>
+<li>任何未登记在 <code>src/SUMMARY.md</code> 中的 <code>.md</code> 文件<strong>完全不会被编译</strong>（杜绝了意外暴露草稿，但新增子页必须同步手改 <code>SUMMARY.md</code>）；</li>
+<li>侧边栏支持为任意深层嵌套路径（如 <code>nested/01-order-and-url.md</code>）直接赋予纯中文章节名并自动编号；</li>
+<li>正文内保留母版原汁原味的相对 <code>.md</code> 链接（<code>./nested/01-order-and-url.md</code>），<code>mdBook</code> 构建期会自动将其重写为 <code>.html</code> 路由，兼顾离线编辑器跳转与静态托管兼容性。</li>
+</ul>
+</li>
+</ol>
+<h2 id="嵌套子文档入口"><a class="header" href="#嵌套子文档入口">嵌套子文档入口</a></h2>
+<ul>
+<li><a href="#嵌套子页-a排序前缀与-url-纯净度权衡">进入子文档 A：排序前缀与 URL 纯净度权衡</a></li>
+<li><a href="#嵌套子页-b多级子目录与侧边栏同步机制">进入子文档 B：多级子目录与侧边栏同步机制</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="嵌套子页-a排序前缀与-url-纯净度权衡"><a class="header" href="#嵌套子页-a排序前缀与-url-纯净度权衡">嵌套子页 A：排序前缀与 URL 纯净度权衡</a></h1>
+<p>在 <code>mdBook</code> 的 <code>src/04-directory/nested/</code> 目录中，阅读顺序实际上由 <code>src/SUMMARY.md</code> 的缩进列表顺序决定，而非文件名排序。保留母版 <code>01-order-and-url.md</code> 命名虽能让代码编辑器文件树与 <code>SUMMARY.md</code> 顺序一致，但编译产物路径也会带入 <code>01-order-and-url.html</code>；不过得益于 <code>mdBook</code> 原生将相对 <code>.md</code> 链接重写为 <code>.html</code>，本地跳转与线上浏览均保持完好。</p>
+<ul>
+<li><a href="#04-目录结构与路由取舍mdbook-summarymd-强中心化模式">返回《04. 目录结构与路由取舍》</a></li>
+<li><a href="#嵌套子页-b多级子目录与侧边栏同步机制">下一篇：《嵌套子页 B：多级子目录与侧边栏同步机制》</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="嵌套子页-b多级子目录与侧边栏同步机制"><a class="header" href="#嵌套子页-b多级子目录与侧边栏同步机制">嵌套子页 B：多级子目录与侧边栏同步机制</a></h1>
+<p>在 <code>mdBook</code> 体系下，<code>src/SUMMARY.md</code> 既是全书侧边栏树，又是上一章 / 下一章翻页器（Prev / Next）和全文检索索引的唯一编译清单：无需在子目录内散落 <code>_index.md</code> 或 <code>_category_.json</code> 等元数据文件，但每次新增或移动子目录文档时都必须同步更新 <code>src/SUMMARY.md</code>。</p>
+<ul>
+<li><a href="#嵌套子页-a排序前缀与-url-纯净度权衡">返回上一篇：《嵌套子页 A：排序前缀与 URL 纯净度权衡》</a></li>
+<li><a href="#04-目录结构与路由取舍mdbook-summarymd-强中心化模式">返回《04. 目录结构与路由取舍》</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="05-高阶代码块与语法高亮mdbook-05--hidelines-实测"><a class="header" href="#05-高阶代码块与语法高亮mdbook-05--hidelines-实测">05. 高阶代码块与语法高亮（mdBook 0.5 + <code>hidelines</code> 实测）</a></h1>
+<p>技术文档中超过 40% 的篇幅由代码块构成，但标准 CommonMark / GitHub Flavored Markdown <strong>仅定义了围栏语言标识（<code>```ts</code>）</strong>，并未定义文件名标题栏、指定行高亮、带语法着色的行级 Diff 以及多语言 Tab 代码组。本文件由原始 GFM 母版派生适配至 <strong><code>mdBook v0.5.4</code></strong>（遵循原生惯例剥离了顶部 YAML Frontmatter，并在 <code>src/SUMMARY.md</code> 注册章节）。</p>
+<h2 id="1-代码块文件名标题栏与基础语法高亮客户端内置-highlightjs"><a class="header" href="#1-代码块文件名标题栏与基础语法高亮客户端内置-highlightjs">1. 代码块文件名标题栏与基础语法高亮（客户端内置 <code>highlight.js</code>）</a></h2>
+<p>与其他 Rust/Go 生成器在构建期直出静态 HTML Token 不同，<code>mdBook</code> 内置了一套完全离线的<strong>客户端 <code>highlight.js</code> + 一键复制按钮（Copy to clipboard）</strong>，随页面顶部的 <code>Light / Rust / Coal / Navy / Ayu</code> 五套主题实时切换代码配色。对于文件名标题栏，沿用母版在代码块上方以粗体路径标注：</p>
+<p><strong><code>scripts/resolve-route.ts</code></strong></p>
+<pre><code class="language-ts">export interface RouteContext {
+  basePath: string
+  slug: string
+  cleanUrls: boolean
+}
+
+export function formatDocRoute(ctx: RouteContext): string {
+  const prefix = ctx.basePath.endsWith('/') ? ctx.basePath : `${ctx.basePath}/`
+  const normalized = ctx.slug.replace(/^\/+|\/+$/g, '')
+  if (!normalized || normalized === 'index') return prefix
+  return ctx.cleanUrls ? `${prefix}${normalized}/` : `${prefix}${normalized}.html`
+}
+</code></pre>
+<h2 id="2-关键行聚焦mdbook-独门绝技-hidelines隐藏样板行而非背景高亮"><a class="header" href="#2-关键行聚焦mdbook-独门绝技-hidelines隐藏样板行而非背景高亮">2. 关键行聚焦：mdBook 独门绝技 <code>hidelines</code>（隐藏样板行而非背景高亮）</a></h2>
+<p><code>mdBook</code> 原生不支持 <code>{3,7-9}</code> 或 <code>hl_lines</code> 背景色高亮，但它源自 <em>The Rust Programming Language</em> 官方教程需求，发明了全行业独树一帜的 <strong><code>hidelines</code>（隐藏上下文样板行）</strong> 机制：</p>
+<ol>
+<li><strong>Rust 代码块默认识别行首 <code># </code></strong>：凡是以 <code># </code> 开头的初始化/断言样板行默认折叠为 <code>&lt;span class="boring"&gt;</code>，代码块右上角自动浮现 <strong>“👁 Show hidden lines”</strong> 切换按钮，既让读者一眼聚焦核心逻辑，又保证整段代码可完整复制编译；</li>
+<li><strong>任意语言自定义前缀 <code>hidelines=...</code></strong>：在非 Rust 代码块（如 <code>json</code> 或 <code>ts</code>）的信息串追加 <code>hidelines=~ </code>，同样可折叠次要字段，聚焦第 <code>3</code> 行与第 <code>7–9</code> 行关键配置！</li>
+</ol>
+<p><strong>实测 A：Rust 原生 <code># </code> 隐藏样板行（点击代码块右上角眼睛图标可展开完整源码）</strong></p>
+<pre><code class="language-rust noplayground"><span class="boring">use std::path::{Component, Path, PathBuf};
+</span><span class="boring">
+</span><span class="boring">pub fn normalize_rel(raw: &amp;str) -&gt; PathBuf {
+</span><span class="boring">    Path::new(raw)
+</span><span class="boring">        .components()
+</span><span class="boring">        .filter(|c| matches!(c, Component::Normal(_)))
+</span><span class="boring">        .collect()
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub fn mount_subsite(base_dir: &amp;Path, sub_path: &amp;str) -&gt; Option&lt;PathBuf&gt; {
+    let resolved_base = base_dir.canonicalize().ok()?;
+    let target = resolved_base.join(normalize_rel(sub_path));
+    target.starts_with(&amp;resolved_base).then_some(target)
+}
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let out = mount_subsite(Path::new("."), "hugo/05-code-blocks");
+</span><span class="boring">    assert!(out.is_none() || out.is_some());
+</span><span class="boring">}</span></code></pre>
+<p><strong>实测 B：母版 JSON 配置配合 <code>json,hidelines=~</code> 聚焦关键配置行（展开可见全量 11 行）</strong></p>
+<pre><code class="language-json hidelines=~">{
+<span class="boring">   "id": "ssg-benchmark",
+</span>  "routeStyle": "clean",
+<span class="boring">   "strictZeroCdn": true,
+</span>  "markdown": {
+<span class="boring">     "mathEngine": "katex",
+</span>    "diagramEngine": "mermaid",
+    "lineHighlight": true,
+    "codeTransformers": ["diff", "focus"]
+  }
+}
+</code></pre>
+<h2 id="3-代码增删对比着色highlightjs-标准-diff-语法"><a class="header" href="#3-代码增删对比着色highlightjs-标准-diff-语法">3. 代码增删对比着色（<code>highlight.js</code> 标准 <code>diff</code> 语法）</a></h2>
+<p>内置 <code>highlight.js</code> 包含 <code>diff</code> 语法包，自动将 <code>-</code> 行包裹为 <code>.hljs-deletion</code>、将 <code>+</code> 行包裹为 <code>.hljs-addition</code>（同样不嵌套解析内部 TypeScript 关键字）：</p>
+<pre><code class="language-diff"> export function mountSubsite(baseDir: string, subPath: string): string | null {
+-  const cleanRel = decodeURIComponent(subPath).replace(/\.\./g, '')
+-  return `${baseDir}/${cleanRel}`
++  const resolvedBase = path.resolve(baseDir)
++  const target = path.resolve(resolvedBase, decodeURIComponent(subPath).replace(/^\/+/, ''))
++  return target.startsWith(`${resolvedBase}${path.sep}`) ? target : null
+ }
+</code></pre>
+<h2 id="4-多语言运行时命令组标准-html-details-折叠组"><a class="header" href="#4-多语言运行时命令组标准-html-details-折叠组">4. 多语言运行时命令组（标准 HTML <code>&lt;details&gt;</code> 折叠组）</a></h2>
+<p><code>mdBook</code> 不内置横向 <code>&lt;Tabs&gt;</code> 预处理器，实务中无需引入第三方 <code>mdbook-tabs</code> 插件即可利用标准 <code>&lt;details name="mdbook-cmd-group"&gt;</code> 实现多运行时切换：</p>
+<details name="mdbook-cmd-group" open="">
+<summary>Rust 单体二进制（<code>book.toml</code> · 当前子站）</summary>
+<pre><code class="language-bash">mdbook build
+</code></pre>
+</details>
+<details name="mdbook-cmd-group">
+<summary>Node.js（<code>package.json</code>）</summary>
+<pre><code class="language-bash">npm ci &amp;&amp; npm run build
+</code></pre>
+</details>
+<details name="mdbook-cmd-group">
+<summary>Deno 2（<code>deno.json</code>）</summary>
+<pre><code class="language-bash">deno task build
+</code></pre>
+</details>
+<details name="mdbook-cmd-group">
+<summary>Python（<code>requirements.txt</code>）与 Ruby（<code>Gemfile</code>）</summary>
+<pre><code class="language-bash">pip install -r requirements.txt &amp;&amp; sphinx-build -b dirhtml . _build/dirhtml
+bundle install &amp;&amp; bundle exec jekyll build
+</code></pre>
+</details>
+<h2 id="5-四大底层高亮引擎能力对照小结"><a class="header" href="#5-四大底层高亮引擎能力对照小结">5. 四大底层高亮引擎能力对照小结</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">高亮引擎代表</th><th style="text-align: left">典型采用框架</th><th style="text-align: left">构建期零运行时 JS</th><th style="text-align: left">原生行号 / 行高亮</th><th style="text-align: left">保留词法着色的 Diff</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><strong>Shiki / Expressive Code</strong></td><td style="text-align: left">VitePress、Starlight、Fumadocs、Nextra、Rspress、Nuxt、Quartz</td><td style="text-align: left">✅ 纯静态内联样式</td><td style="text-align: left">✅ <code>{1,3-5}</code> / <code>[!code highlight]</code></td><td style="text-align: left">✅ <code>// [!code ++]</code></td></tr>
+<tr><td style="text-align: left"><strong>Prism.js</strong></td><td style="text-align: left">Docusaurus、VuePress、Eleventy (plugin)、Gatsby</td><td style="text-align: left">✅ 静态 Token 类名</td><td style="text-align: left">✅ <code>{1,3-5}</code> / 魔法注释</td><td style="text-align: left">⚠️ 需配 diff-highlight 插件</td></tr>
+<tr><td style="text-align: left"><strong>Pygments / Rouge</strong></td><td style="text-align: left">MkDocs Material、Sphinx、Pelican、Jekyll</td><td style="text-align: left">✅ Python/Ruby 编译直出</td><td style="text-align: left">✅ <code>hl_lines</code> / <code>emphasize-lines</code></td><td style="text-align: left">⚠️ 仅标准 <code>diff</code> 块红绿</td></tr>
+<tr><td style="text-align: left"><strong>Chroma / Giallo / hljs</strong></td><td style="text-align: left">Hugo (Go Chroma)、Zola (Rust Giallo)、<strong>mdBook (客户端 hljs)</strong></td><td style="text-align: left">⚠️ <strong>mdBook 为本地离线客户端 hljs</strong></td><td style="text-align: left">✅ <strong>mdBook 独创 <code># </code> / <code>hidelines</code> 隐藏样板行</strong></td><td style="text-align: left">⚠️ 仅标准 <code>diff</code> 块红绿</td></tr>
+</tbody>
+</table>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/vendor/katex-fa140498.min.js"></script>
+        <script src="theme/vendor/auto-render-e5372d19.min.js"></script>
+        <script src="theme/vendor/mermaid-336df803.min.js"></script>
+        <script src="theme/init-63aafe91.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
